@@ -1,0 +1,16 @@
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\bin\Debug\ContraGame.exe.config
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\bin\Debug\ContraGame.exe
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\bin\Debug\ContraGame.pdb
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\obj\Debug\NotContra.csprojResolveAssemblyReference.cache
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\obj\Debug\MainWindow.g.cs
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\obj\Debug\App.g.cs
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\obj\Debug\ContraGame_MarkupCompile.cache
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\obj\Debug\ContraGame_MarkupCompile.lref
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\obj\Debug\MainWindow.baml
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\obj\Debug\ContraGame.g.resources
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\obj\Debug\NotContra.ImageResources.resources
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\obj\Debug\NotContra.Properties.Resources.resources
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\obj\Debug\NotContra.csproj.GenerateResource.Cache
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\obj\Debug\ContraGame.exe
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\obj\Debug\ContraGame.pdb
+C:\Users\dclaxton1\Desktop\Git\CSCI-3005\ContraGame\ContraGame\ContraGame\obj\Debug\NotContra.LevelResources.resources
