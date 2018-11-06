@@ -58,12 +58,14 @@
     </ApplicationDefinition>
     <Compile Include="GameView.cs" />
     <Compile Include="GameModel.cs" />
+    <Compile Include="Hero.cs" />
     <Compile Include="ImageResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ImageResources.resx</DependentUpon>
     </Compile>
     <Compile Include="ImageSelector.cs" />
+    <Compile Include="IViewable.cs" />
     <Compile Include="LevelResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

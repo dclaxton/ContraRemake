@@ -6,23 +6,34 @@ using System.Threading.Tasks;
 
 namespace NotContra
 {
-    class GameModel
+    class GameModel : IViewable
     {
-        public GameModel(Terrain terrain)
+        public GameModel(Terrain terrain, Hero hero)
         {
-            if(terrain == null)
+            if(terrain.Equals(null))
             {
                 throw new ArgumentNullException("Terrain is null.");
             }
 
-            this.Terrain = terrain;
+            if(hero.Equals(null))
+            {
+                throw new ArgumentNullException("Hero is null.");
+            }
+
+            Terrain = terrain;
+            Hero = hero;
         }
 
         public Terrain Terrain { get; private set; }
 
+        public Hero Hero { get; private set; }
+
         public List<Tile> GetTiles() //def gonna change 
         {
-            return Terrain.Tiles;
+            List<Tile> tiles = new List<Tile>();
+            tiles.AddRange(Terrain.GetTiles());
+            tiles.AddRange(Hero.GetTiles());
+            return tiles;
         }
 
 

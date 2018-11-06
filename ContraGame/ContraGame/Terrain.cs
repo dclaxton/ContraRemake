@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NotContra
 {
-    class Terrain
+    class Terrain : IViewable
     {
         public Terrain()
         {
@@ -28,6 +26,24 @@ namespace NotContra
             }
         }
 
+        public Tile GetStart()
+        {
+            var start_tiles = from tile in Tiles
+                              where tile.Code.Equals(TileCode.START)
+                              select tile;
+            if(!start_tiles.Count().Equals(1) )
+            {
+                throw new InvalidOperationException("There are no start tiles in this terrain!");
+            }
+
+            return start_tiles.First();
+        }
+
         public List<Tile> Tiles { get; private set; }
+
+        public List<Tile> GetTiles()
+        {
+            return Tiles;
+        }
     }
 }
