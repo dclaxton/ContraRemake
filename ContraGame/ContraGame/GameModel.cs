@@ -33,6 +33,11 @@ namespace NotContra
             List<Tile> tiles = new List<Tile>();
             tiles.AddRange(Terrain.GetTiles());
             tiles.AddRange(Hero.GetTiles());
+
+            foreach(var projectile in this.Hero.Projectiles)
+            {
+                tiles.AddRange(projectile.GetTiles());
+            }
             return tiles;
         }
 

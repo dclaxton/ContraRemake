@@ -2,6 +2,8 @@
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
+using System;
 
 namespace NotContra
 {
@@ -14,6 +16,7 @@ namespace NotContra
         private GameModel model;
         private Terrain terrain;
         private GameView view;
+        private DispatcherTimer gameTimer;
 
         public MainWindow()
         {
@@ -27,6 +30,28 @@ namespace NotContra
             this.view = new GameView(world, model);
 
             this.view.Update();
+
+            this.gameTimer = CreateTimer(25, true, OnUpdateView);
+        }
+
+        DispatcherTimer CreateTimer(int milliseconds, bool enabled, EventHandler callbackMethod)
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 0, 0, milliseconds);
+            timer.IsEnabled = enabled;
+            timer.Tick += callbackMethod;
+            return timer;
+        }
+
+        void OnUpdateView(object sender, EventArgs e)
+        {
+            this.view.Update();
+            this.hero.Update(terrain);
+
+            foreach(var projectile in this.hero.Projectiles)
+            {
+                projectile.Update();
+            }
         }
 
         private void BuildTerrain()
@@ -45,25 +70,26 @@ namespace NotContra
             {
                 case Key.A:
                 case Key.Left:
-                    this.hero.Left(this.terrain);
+                    this.hero.Left();
                     break;
                 case Key.D:
                 case Key.Right:
-                    this.hero.Right(this.terrain);
+                    this.hero.Right();
                     break;
                 case Key.W:
                 case Key.Up:
-                    this.hero.Jump(this.terrain);
+                    this.hero.Jump();
+                    break;
+                case Key.E:
+                    this.hero.Shoot();
                     break;
             }
 
-            this.view.Update();
         }
 
         private void world_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             this.hero.StopRunning();
-            this.view.Update();
         }
     }
 }

@@ -17,16 +17,24 @@ namespace NotContra
 
             this.X = start.X;
             this.Y = start.Y;
+            this.MovementX = 0;
+            this.MovementY = 0;
             this.Image = "hero_idle_right";
             this.IsJumping = false;
-            this.JumpSpeed = 0;
+            this.JumpSpeed = 20;
+            this.Projectiles = new List<Projectile>();
+            this.Direction = 1; //1 is Right, -1 is Left
         }
 
         public string Image { get; private set; }
         public int X { get; private set; }
         public int Y { get; private set; }
+        public int MovementX { get; private set; }
+        public int MovementY { get; private set; }
         public bool IsJumping { get; private set; }
         public int JumpSpeed { get; private set; }
+        public List<Projectile> Projectiles { get; private set; }
+        public int Direction { get; private set; }
 
         public List<Tile> GetTiles()
         {
@@ -38,20 +46,51 @@ namespace NotContra
         return tiles;
         }
 
-        internal void Left(Terrain terrain)
+        internal void Left()
         {
-            X -= 5;
+            Direction = -1;
+            MovementX = -5;
             Image = "hero_run_left";
         }
 
-        internal void Right(Terrain terrain)
+        internal void Right()
         {
-            X += 5;
+            Direction = 1;
+            MovementX = 5;
             Image = "hero_run_right";
+        }
+
+        internal void Shoot()
+        {
+            this.Projectiles.Add(new Projectile(this.X, this.Y, this.Direction));
+        }
+
+        internal void Update(Terrain terrain)
+        {
+            X += MovementX;
+            Y += MovementY;
+
+            if(IsJumping && MovementY <= JumpSpeed)
+            {
+                MovementY += 1;
+            }
+
+            if(IsJumping && MovementY > JumpSpeed)
+            {
+                IsJumping = false;
+                MovementY = 0;
+            }
+
+            if(terrain.IsLedgeAt(X, Y + ImageSelector.IMAGE_HEIGHT))
+            {
+                IsJumping = false;
+                MovementY = 0;
+            }
         }
 
         internal void StopRunning()
         {
+            MovementX = 0;
             if(Image.Equals("hero_run_right"))
             {
                 Image = "hero_idle_right";
@@ -63,11 +102,11 @@ namespace NotContra
             }
         }
 
-        internal void Jump(Terrain terrain)
+        internal void Jump()
         {
             if(!IsJumping)
             {
-                JumpSpeed = 10;
+                MovementY = -JumpSpeed;
                 IsJumping = true;
             }
 

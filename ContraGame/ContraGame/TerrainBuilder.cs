@@ -21,7 +21,11 @@ namespace NotContra
 
             int y = 0;
             while (!reader.EndOfStream)
+            {
                 y = AddImageToTerrain(reader, y);
+            }
+
+            Terrain.BuildLedgeMap();
         }
 
         private int AddImageToTerrain(StreamReader reader, int y)

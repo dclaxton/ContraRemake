@@ -142,6 +142,9 @@
   <data name="hero_shoot_right" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\hero_shoot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Projectile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Projectile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="world_dirt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\world_dirt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

@@ -71,6 +71,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LevelResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Projectile.cs" />
     <Compile Include="Terrain.cs" />
     <Compile Include="TerrainBuilder.cs" />
     <Compile Include="Tile.cs" />
@@ -149,6 +150,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\hero_dead1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Projectile.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
