@@ -27,11 +27,17 @@ namespace NotContra
         {
             Canvas.Children.Clear();
 
+            int heroX = Model.Hero.X;
+            int centerX = (int)(Canvas.Width / 2);
+            int diffX = centerX - heroX;
+
             foreach(Tile tile in Model.GetTiles())
             {
                 if (tile.Name == "") continue;
 
-                WriteImageToCanvas(tile);
+                Tile modifiedTile = new Tile(tile.Code, tile.X + diffX, tile.Y, tile.Name);
+
+                WriteImageToCanvas(modifiedTile);
             }
 
             Canvas.UpdateLayout();

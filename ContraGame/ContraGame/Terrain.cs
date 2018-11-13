@@ -26,7 +26,9 @@ namespace NotContra
 
             foreach(Tile tile in Tiles)
             {
-                ledgeMap[tile.X, tile.Y] = tile.Code == TileCode.LEDGE;
+                int x = tile.X / ImageSelector.IMAGE_WIDTH;
+                int y = tile.Y / ImageSelector.IMAGE_HEIGHT;
+                ledgeMap[x,y] = tile.Code == TileCode.LEDGE;
             }
         }
 

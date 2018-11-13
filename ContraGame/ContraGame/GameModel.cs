@@ -20,6 +20,7 @@ namespace NotContra
                 throw new ArgumentNullException("Hero is null.");
             }
 
+            Manager = new EnemyManager();
             Terrain = terrain;
             Hero = hero;
         }
@@ -27,20 +28,22 @@ namespace NotContra
         public Terrain Terrain { get; private set; }
 
         public Hero Hero { get; private set; }
+        public EnemyManager Manager { get; private set; }
 
         public List<Tile> GetTiles() //def gonna change 
         {
             List<Tile> tiles = new List<Tile>();
             tiles.AddRange(Terrain.GetTiles());
             tiles.AddRange(Hero.GetTiles());
-
-            foreach(var projectile in this.Hero.Projectiles)
-            {
-                tiles.AddRange(projectile.GetTiles());
-            }
+            tiles.AddRange(Manager.GetTiles());
             return tiles;
         }
 
-
+        internal void Update()
+        {
+            this.Hero.Update(Terrain);
+            this.Manager.GenerateEnemy(Hero);
+            this.Manager.UpdateEnemies(Terrain);
+        }
     }
 }

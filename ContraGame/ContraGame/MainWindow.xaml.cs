@@ -46,12 +46,7 @@ namespace NotContra
         void OnUpdateView(object sender, EventArgs e)
         {
             this.view.Update();
-            this.hero.Update(terrain);
-
-            foreach(var projectile in this.hero.Projectiles)
-            {
-                projectile.Update();
-            }
+            this.model.Update();
         }
 
         private void BuildTerrain()

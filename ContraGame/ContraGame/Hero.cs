@@ -42,8 +42,11 @@ namespace NotContra
             {
                 new Tile(TileCode.PLAYER, X,Y,Image)
             };
-
-        return tiles;
+            foreach (var projectile in Projectiles)
+            {
+                tiles.AddRange(projectile.GetTiles());
+            }
+            return tiles;
         }
 
         internal void Left()
@@ -75,16 +78,20 @@ namespace NotContra
                 MovementY += 1;
             }
 
-            if(IsJumping && MovementY > JumpSpeed)
+            if (!IsJumping && !terrain.IsLedgeAt(X, Y + ImageSelector.IMAGE_HEIGHT))
+            {
+                IsJumping = true;
+            }
+
+            if(MovementY >= 0 && terrain.IsLedgeAt(X,Y + ImageSelector.IMAGE_HEIGHT))
             {
                 IsJumping = false;
                 MovementY = 0;
             }
 
-            if(terrain.IsLedgeAt(X, Y + ImageSelector.IMAGE_HEIGHT))
+            foreach (var projectile in Projectiles)
             {
-                IsJumping = false;
-                MovementY = 0;
+                projectile.Update();
             }
         }
 
