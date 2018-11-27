@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace NotContra
 {
@@ -50,6 +51,19 @@ namespace NotContra
 
             this.Manager.CollideWithHero(Hero);
             this.Hero.ShootEnemies(this.Manager.Enemies);
+
+            //check for end of game
+            Tile end = Terrain.GetEnd();
+            int x = Hero.X + ImageSelector.IMAGE_WIDTH / 2;
+            int y = Hero.Y + ImageSelector.IMAGE_HEIGHT / 2;
+
+            if (x > end.X &&
+                x < end.X + ImageSelector.IMAGE_WIDTH &&
+                y > end.Y &&
+                y < end.Y + ImageSelector.IMAGE_HEIGHT)
+            {
+                MessageBox.Show("Congrats You Win!");
+            }
         }
     }
 }

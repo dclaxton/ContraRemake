@@ -82,6 +82,19 @@ namespace NotContra
             return start_tiles.First();
         }
 
+        public Tile GetEnd()
+        {
+            var end_tiles = from tile in Tiles
+                              where tile.Code.Equals(TileCode.END)
+                              select tile;
+            if (!end_tiles.Count().Equals(1))
+            {
+                throw new InvalidOperationException("There are no end tiles in this terrain!");
+            }
+
+            return end_tiles.First();
+        }
+
         public List<Tile> Tiles { get; private set; }
 
         public List<Tile> GetTiles()
