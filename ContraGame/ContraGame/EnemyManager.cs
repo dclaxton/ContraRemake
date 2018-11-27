@@ -12,7 +12,7 @@ namespace NotContra
 
         public EnemyManager()
         {
-            this.Enemies = new List<ZombieLad>();
+            this.Enemies = new List<Enemy>();
             this.rand = new Random();
         }
 
@@ -40,13 +40,33 @@ namespace NotContra
             return tiles;
         }
 
-        public List<ZombieLad> Enemies { get; private set; }
+        public List<Enemy> Enemies { get; private set; }
 
         internal void UpdateEnemies(Terrain terrain)
         {
-            foreach(ZombieLad lad in Enemies)
+
+            Enemies = Enemies.FindAll(enemy => enemy.EnemyRemainsOnScreen > 0);
+            foreach (Enemy lad in Enemies)
             {
                 lad.Update(terrain);
+            }
+        }
+
+        internal void CollideWithHero(Hero hero)
+        {
+            foreach (Enemy enemy in Enemies)
+            {
+                int x = enemy.X + ImageSelector.IMAGE_WIDTH / 2;
+                int y = enemy.Y + ImageSelector.IMAGE_HEIGHT / 2;
+
+                if (x > hero.X &&
+                    x < hero.X + ImageSelector.IMAGE_WIDTH &&
+                    y > hero.Y &&
+                    y < hero.Y + ImageSelector.IMAGE_HEIGHT &&
+                    !enemy.IsDead())
+                {
+                    hero.Dies();
+                }
             }
         }
     }

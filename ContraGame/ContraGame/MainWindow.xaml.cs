@@ -22,16 +22,19 @@ namespace NotContra
         {
             InitializeComponent();
             world.Focus();
-
             BuildTerrain();
+            BuildNewGame();
 
+            this.gameTimer = CreateTimer(25, true, OnUpdateView);
+        }
+
+        private void BuildNewGame()
+        {
             this.hero = new Hero(this.terrain.GetStart());
             this.model = new GameModel(this.terrain, this.hero);
             this.view = new GameView(world, model);
 
             this.view.Update();
-
-            this.gameTimer = CreateTimer(25, true, OnUpdateView);
         }
 
         DispatcherTimer CreateTimer(int milliseconds, bool enabled, EventHandler callbackMethod)
@@ -47,6 +50,11 @@ namespace NotContra
         {
             this.view.Update();
             this.model.Update();
+
+            if(model.ShouldRestart())
+            {
+                BuildNewGame();
+            }
         }
 
         private void BuildTerrain()
@@ -84,7 +92,7 @@ namespace NotContra
 
         private void world_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            this.hero.StopRunning();
+                this.hero.StopRunning();
         }
     }
 }

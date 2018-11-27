@@ -23,7 +23,10 @@ namespace NotContra
             Manager = new EnemyManager();
             Terrain = terrain;
             Hero = hero;
+            
         }
+
+        public bool ShouldRestart() => Hero.HeroRemainsOnScreen < 0;
 
         public Terrain Terrain { get; private set; }
 
@@ -44,6 +47,9 @@ namespace NotContra
             this.Hero.Update(Terrain);
             this.Manager.GenerateEnemy(Hero);
             this.Manager.UpdateEnemies(Terrain);
+
+            this.Manager.CollideWithHero(Hero);
+            this.Hero.ShootEnemies(this.Manager.Enemies);
         }
     }
 }

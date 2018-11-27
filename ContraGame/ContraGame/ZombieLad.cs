@@ -18,26 +18,24 @@ namespace NotContra
                 Image = "zombie_walk_left";
             }
         }
-
-
-
+        
         public string Image { get; private set; }
 
-        public List<Tile> GetTiles()
+        public override string GetImage()
         {
             if (IsDead() && MovementX >= 0)
             {
                 Image = "zombie_dead";
+                MovementX = 0;
             }
+
             if (IsDead() && MovementX < 0)
             {
                 Image = "zombie_dead_left";
+                MovementX = 0;
             }
 
-            return new List<Tile>
-            {
-                new Tile(TileCode.ENEMY,X,Y,Image)
-            };
+            return Image;
         }
     }
 }

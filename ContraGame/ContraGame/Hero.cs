@@ -8,6 +8,8 @@ namespace NotContra
 {
     class Hero : IViewable
     {
+        private readonly int TimeBetweenShots;
+
         public Hero(Tile start)
         {
             if(start.Equals(null))
@@ -24,6 +26,9 @@ namespace NotContra
             this.JumpSpeed = 20;
             this.Projectiles = new List<Projectile>();
             this.Direction = 1; //1 is Right, -1 is Left
+            this.HeroRemainsOnScreen = 100;
+            this.TimeBetweenShots = 15;
+            this.TimeTillNextShot = 0;
         }
 
         public string Image { get; private set; }
@@ -35,6 +40,9 @@ namespace NotContra
         public int JumpSpeed { get; private set; }
         public List<Projectile> Projectiles { get; private set; }
         public int Direction { get; private set; }
+        public bool IsDead { get; private set; }
+        public int HeroRemainsOnScreen { get; private set; }
+        public int TimeTillNextShot { get; private set; }
 
         public List<Tile> GetTiles()
         {
@@ -49,44 +57,125 @@ namespace NotContra
             return tiles;
         }
 
+        internal void ShootEnemies(List<Enemy> enemies)
+        {
+            foreach (Projectile projectile in this.Projectiles)
+            {
+                int x = projectile.X + ImageSelector.IMAGE_WIDTH / 2;
+                int y = projectile.Y + ImageSelector.IMAGE_HEIGHT / 2;
+
+                foreach (Enemy enemy in enemies)
+                {
+                    if (x > enemy.X &&
+                        x < enemy.X + ImageSelector.IMAGE_WIDTH &&
+                        y > enemy.Y &&
+                        y < enemy.Y + ImageSelector.IMAGE_HEIGHT &&
+                        !enemy.IsDead())
+                    {
+                        enemy.TakeDamage(1);
+                        projectile.Dissolve();
+                    }
+                }
+            }
+        }
+
+        internal void Dies()
+        {
+            this.IsDead = true;
+            MovementX = 0;
+            if(Direction < 0)
+            {
+                Image = "hero_dead_left";
+            }
+            else
+            {
+                Image = "hero_dead";
+            }
+        }
+
         internal void Left()
         {
-            Direction = -1;
-            MovementX = -5;
-            Image = "hero_run_left";
+            if(!IsDead)
+            {
+                Direction = -1;
+                MovementX = -5;
+                Image = "hero_run_left";
+            }
         }
 
         internal void Right()
         {
-            Direction = 1;
-            MovementX = 5;
-            Image = "hero_run_right";
+            if(!IsDead)
+            {
+                Direction = 1;
+                MovementX = 5;
+                Image = "hero_run_right";
+            }
         }
 
         internal void Shoot()
         {
-            this.Projectiles.Add(new Projectile(this.X, this.Y, this.Direction));
+            if (!IsDead && TimeTillNextShot == 0)
+            {
+                this.Projectiles.Add(new Projectile(this.X, this.Y, this.Direction));
+                TimeTillNextShot = TimeBetweenShots;
+
+                if(Direction < 0)
+                {
+                    Image = "hero_shoot_left";
+                }
+                else
+                {
+                    Image = "hero_shoot_right";
+                }
+            }
         }
 
         internal void Update(Terrain terrain)
         {
+            this.Projectiles = this.Projectiles.FindAll(
+                projectile => projectile.TimeToLive > 0
+            );
+
+            if(TimeTillNextShot > 0)
+            {
+                TimeTillNextShot--;
+            }
+
+            if(IsDead)
+            {
+                HeroRemainsOnScreen--;
+            }
+
             X += MovementX;
             Y += MovementY;
 
-            if(IsJumping && MovementY <= JumpSpeed)
+            if(Y > 800)
+            {
+                IsDead = true;
+            }
+
+            if (IsJumping && MovementY <= JumpSpeed)
             {
                 MovementY += 1;
             }
 
-            if (!IsJumping && !terrain.IsLedgeAt(X, Y + ImageSelector.IMAGE_HEIGHT))
+            if (!IsJumping && !terrain.IsLedgeAt(X, Y + ImageSelector.IMAGE_HEIGHT) &&
+                !terrain.IsLedgeAt(X + ImageSelector.IMAGE_WIDTH / 2, Y + ImageSelector.IMAGE_HEIGHT) &&
+                !terrain.IsLedgeAt(X + ImageSelector.IMAGE_WIDTH, Y + ImageSelector.IMAGE_HEIGHT))
             {
                 IsJumping = true;
             }
 
-            if(MovementY >= 0 && terrain.IsLedgeAt(X,Y + ImageSelector.IMAGE_HEIGHT))
+            if (MovementY >= 0 && terrain.IsLedgeAt(X, Y + ImageSelector.IMAGE_HEIGHT))
             {
                 IsJumping = false;
                 MovementY = 0;
+            }
+
+            if(MovementY == 0 && terrain.IsLedgeAt(X, Y + ImageSelector.IMAGE_HEIGHT -1))
+            {
+                Y = (int)(Y / ImageSelector.IMAGE_HEIGHT) * ImageSelector.IMAGE_HEIGHT;
             }
 
             foreach (var projectile in Projectiles)
@@ -97,21 +186,24 @@ namespace NotContra
 
         internal void StopRunning()
         {
-            MovementX = 0;
-            if(Image.Equals("hero_run_right"))
+            if (!IsDead && !IsJumping)
             {
-                Image = "hero_idle_right";
-            }
+                MovementX = 0;
+                if (Image.Equals("hero_run_right"))
+                {
+                    Image = "hero_idle_right";
+                }
 
-            if(Image.Equals("hero_run_left"))
-            {
-                Image = "hero_idle_left";
+                if (Image.Equals("hero_run_left"))
+                {
+                    Image = "hero_idle_left";
+                }
             }
         }
 
         internal void Jump()
         {
-            if(!IsJumping)
+            if(!IsJumping && !IsDead)
             {
                 MovementY = -JumpSpeed;
                 IsJumping = true;

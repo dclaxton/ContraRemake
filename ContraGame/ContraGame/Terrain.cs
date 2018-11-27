@@ -39,7 +39,7 @@ namespace NotContra
 
             if(x < 0 || y < 0 || x > maxX || y > maxY)
             {
-                return true;
+                return false;
             }
 
             return ledgeMap[x, y];

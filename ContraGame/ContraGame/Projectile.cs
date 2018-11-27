@@ -21,6 +21,7 @@ namespace NotContra
         public void Update()
         {
             this.X += Direction * Speed;
+            this.TimeToLive--;
         }
 
         public List<Tile> GetTiles()
@@ -36,5 +37,10 @@ namespace NotContra
         public int TimeToLive { get; private set; }
         public int X { get; private set; }
         public int Y { get; private set; }
+
+        internal void Dissolve()
+        {
+            TimeToLive = -1;
+        }
     }
 }
