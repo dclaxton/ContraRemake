@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NotContra
 {
-    class Hero : IViewable
+    class Hero 
     {
         private readonly int TimeBetweenShots;
 
@@ -16,7 +16,6 @@ namespace NotContra
             {
                 throw new ArgumentNullException("Start tile cannot be null");
             }
-
             this.X = start.X;
             this.Y = start.Y;
             this.MovementX = 0;
@@ -24,7 +23,6 @@ namespace NotContra
             this.Image = "hero_idle_right";
             this.IsJumping = false;
             this.JumpSpeed = 20;
-            this.Projectiles = new List<Projectile>();
             this.Direction = 1; //1 is Right, -1 is Left
             this.HeroRemainsOnScreen = 100;
             this.TimeBetweenShots = 15;
@@ -38,7 +36,6 @@ namespace NotContra
         public int MovementY { get; private set; }
         public bool IsJumping { get; private set; }
         public int JumpSpeed { get; private set; }
-        public List<Projectile> Projectiles { get; private set; }
         public int Direction { get; private set; }
         public bool IsDead { get; private set; }
         public int HeroRemainsOnScreen { get; private set; }
@@ -50,33 +47,7 @@ namespace NotContra
             {
                 new Tile(TileCode.PLAYER, X,Y,Image)
             };
-            foreach (var projectile in Projectiles)
-            {
-                tiles.AddRange(projectile.GetTiles());
-            }
             return tiles;
-        }
-
-        internal void ShootEnemies(List<Enemy> enemies)
-        {
-            foreach (Projectile projectile in this.Projectiles)
-            {
-                int x = projectile.X + ImageSelector.IMAGE_WIDTH / 2;
-                int y = projectile.Y + ImageSelector.IMAGE_HEIGHT / 2;
-
-                foreach (Enemy enemy in enemies)
-                {
-                    if (x > enemy.X &&
-                        x < enemy.X + ImageSelector.IMAGE_WIDTH &&
-                        y > enemy.Y &&
-                        y < enemy.Y + ImageSelector.IMAGE_HEIGHT &&
-                        !enemy.IsDead())
-                    {
-                        enemy.TakeDamage(1);
-                        projectile.Dissolve();
-                    }
-                }
-            }
         }
 
         internal void Dies()
@@ -117,7 +88,7 @@ namespace NotContra
         {
             if (!IsDead && TimeTillNextShot == 0)
             {
-                this.Projectiles.Add(new Projectile(this.X, this.Y, this.Direction));
+                //Projectiles.Add(new Projectile(this.X, this.Y, this.Direction));
                 TimeTillNextShot = TimeBetweenShots;
 
                 if(Direction < 0)
@@ -133,10 +104,6 @@ namespace NotContra
 
         internal void Update(Terrain terrain)
         {
-            this.Projectiles = this.Projectiles.FindAll(
-                projectile => projectile.TimeToLive > 0
-            );
-
             if(TimeTillNextShot > 0)
             {
                 TimeTillNextShot--;
@@ -176,11 +143,6 @@ namespace NotContra
             if(MovementY == 0 && terrain.IsLedgeAt(X, Y + ImageSelector.IMAGE_HEIGHT -1))
             {
                 Y = (int)(Y / ImageSelector.IMAGE_HEIGHT) * ImageSelector.IMAGE_HEIGHT;
-            }
-
-            foreach (var projectile in Projectiles)
-            {
-                projectile.Update();
             }
         }
 

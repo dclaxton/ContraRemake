@@ -22,6 +22,7 @@ namespace NotContra
             }
 
             Manager = new EnemyManager();
+            PManager = new ProjectileManager();
             Terrain = terrain;
             Hero = hero;
             
@@ -33,6 +34,7 @@ namespace NotContra
 
         public Hero Hero { get; private set; }
         public EnemyManager Manager { get; private set; }
+        public ProjectileManager PManager { get; private set; }
 
         public List<Tile> GetTiles() //def gonna change 
         {
@@ -40,6 +42,7 @@ namespace NotContra
             tiles.AddRange(Terrain.GetTiles());
             tiles.AddRange(Hero.GetTiles());
             tiles.AddRange(Manager.GetTiles());
+            tiles.AddRange(PManager.GetTiles());
             return tiles;
         }
 
@@ -48,9 +51,9 @@ namespace NotContra
             this.Hero.Update(Terrain);
             this.Manager.GenerateEnemy(Hero);
             this.Manager.UpdateEnemies(Terrain);
-
             this.Manager.CollideWithHero(Hero);
-            this.Hero.ShootEnemies(this.Manager.Enemies);
+            this.PManager.ShootEnemies(this.Manager.Enemies);
+            this.PManager.UpdateProjectiles();
 
             //check for end of game
             Tile end = Terrain.GetEnd();

@@ -74,6 +74,7 @@
       <DependentUpon>LevelResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Projectile.cs" />
+    <Compile Include="ProjectileManager.cs" />
     <Compile Include="Terrain.cs" />
     <Compile Include="TerrainBuilder.cs" />
     <Compile Include="Tile.cs" />
