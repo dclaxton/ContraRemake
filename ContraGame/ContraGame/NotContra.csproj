@@ -60,6 +60,7 @@
     <Compile Include="EnemyManager.cs" />
     <Compile Include="GameView.cs" />
     <Compile Include="GameModel.cs" />
+    <Compile Include="GolemLad.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="ImageResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -160,6 +161,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\zombie_dead1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Golem_walking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Golem_Dead.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Golem_walking1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Golem_Dead1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

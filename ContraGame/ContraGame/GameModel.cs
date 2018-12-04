@@ -46,7 +46,8 @@ namespace NotContra
         internal void Update()
         {
             this.Hero.Update(Terrain);
-            this.Manager.GenerateEnemy(Hero);
+            this.Manager.GenerateZombie(Hero);
+            this.Manager.GenerateGolem(Hero);
             this.Manager.UpdateEnemies(Terrain);
             this.Manager.CollideWithHero(Hero);
             this.Hero.Projectiles.ShootEnemies(this.Manager.Enemies);

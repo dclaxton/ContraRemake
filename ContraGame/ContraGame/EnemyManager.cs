@@ -16,7 +16,7 @@ namespace NotContra
             this.rand = new Random();
         }
 
-        public void GenerateEnemy(Hero hero)
+        public void GenerateZombie(Hero hero)
         {
             int rollToGenerate = rand.Next(80);
 
@@ -26,6 +26,20 @@ namespace NotContra
                 int y = hero.Y;
 
                 ZombieLad lad = new ZombieLad(x, y, -2);
+                this.Enemies.Add(lad);
+            }
+        }
+
+        public void GenerateGolem(Hero hero)
+        {
+            int rollToGenerate = rand.Next(150);
+
+            if (rollToGenerate == 0)
+            {
+                int x = hero.X + 600;
+                int y = hero.Y;
+
+                GolemLad lad = new GolemLad(x, y-1, -1);
                 this.Enemies.Add(lad);
             }
         }

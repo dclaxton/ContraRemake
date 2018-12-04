@@ -175,7 +175,6 @@ namespace NotContra
                 MovementY = -JumpSpeed;
                 IsJumping = true;
             }
-
         }
     }
 }
