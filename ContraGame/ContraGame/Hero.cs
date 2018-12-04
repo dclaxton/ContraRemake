@@ -27,6 +27,7 @@ namespace NotContra
             this.HeroRemainsOnScreen = 100;
             this.TimeBetweenShots = 15;
             this.TimeTillNextShot = 0;
+            this.Projectiles = new ProjectileManager();
         }
 
         public string Image { get; private set; }
@@ -40,6 +41,7 @@ namespace NotContra
         public bool IsDead { get; private set; }
         public int HeroRemainsOnScreen { get; private set; }
         public int TimeTillNextShot { get; private set; }
+        public ProjectileManager Projectiles { get; private set; }
 
         public List<Tile> GetTiles()
         {
@@ -47,6 +49,7 @@ namespace NotContra
             {
                 new Tile(TileCode.PLAYER, X,Y,Image)
             };
+            tiles.AddRange(Projectiles.GetTiles());
             return tiles;
         }
 
@@ -88,7 +91,7 @@ namespace NotContra
         {
             if (!IsDead && TimeTillNextShot == 0)
             {
-                //Projectiles.Add(new Projectile(this.X, this.Y, this.Direction));
+                Projectiles.Add(new Projectile(this.X, this.Y, this.Direction));
                 TimeTillNextShot = TimeBetweenShots;
 
                 if(Direction < 0)
@@ -104,6 +107,8 @@ namespace NotContra
 
         internal void Update(Terrain terrain)
         {
+            Projectiles.UpdateProjectiles();
+
             if(TimeTillNextShot > 0)
             {
                 TimeTillNextShot--;
