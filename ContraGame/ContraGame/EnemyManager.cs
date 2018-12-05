@@ -32,7 +32,7 @@ namespace NotContra
 
         public void GenerateGolem(Hero hero)
         {
-            int rollToGenerate = rand.Next(150);
+            int rollToGenerate = rand.Next(160);
 
             if (rollToGenerate == 0)
             {

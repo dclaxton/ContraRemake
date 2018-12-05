@@ -9,7 +9,7 @@ namespace NotContra
     class GolemLad : Enemy,IViewable
     {
         public GolemLad(int x, int y, int movementX) :
-            base(3, x, y, movementX, 0)
+            base(2, x, y, movementX, 0)
         {
             Image = "golem_walking";
 

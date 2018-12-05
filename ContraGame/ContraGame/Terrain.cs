@@ -95,6 +95,18 @@ namespace NotContra
             return end_tiles.First();
         }
 
+        public Tile GetUpgrade()
+        {
+            var upgraded_tile = from tile in Tiles
+                                where tile.Code.Equals(TileCode.UPROJECTILE)
+                                select tile;
+            if(!upgraded_tile.Count().Equals(1))
+            {
+                throw new InvalidOperationException("There are no upgrade tiles in the terrain!");
+            }
+            return upgraded_tile.First();
+        }
+
         public List<Tile> Tiles { get; private set; }
 
         public List<Tile> GetTiles()

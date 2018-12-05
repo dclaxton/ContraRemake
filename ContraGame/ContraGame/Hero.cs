@@ -22,6 +22,7 @@ namespace NotContra
             this.MovementY = 0;
             this.Image = "hero_idle_right";
             this.IsJumping = false;
+            this.IsUpgraded = false;
             this.JumpSpeed = 20;
             this.Direction = 1; //1 is Right, -1 is Left
             this.HeroRemainsOnScreen = 100;
@@ -36,6 +37,7 @@ namespace NotContra
         public int MovementX { get; private set; }
         public int MovementY { get; private set; }
         public bool IsJumping { get; private set; }
+        public bool IsUpgraded { get; set; }
         public int JumpSpeed { get; private set; }
         public int Direction { get; private set; }
         public bool IsDead { get; private set; }
@@ -91,7 +93,7 @@ namespace NotContra
         {
             if (!IsDead && TimeTillNextShot == 0)
             {
-                Projectiles.Add(new Projectile(this.X, this.Y, this.Direction));
+                Projectiles.Add(new Projectile(this.X, this.Y, this.Direction, IsUpgraded));
                 TimeTillNextShot = TimeBetweenShots;
 
                 if(Direction < 0)
@@ -165,6 +167,18 @@ namespace NotContra
                 {
                     Image = "hero_idle_left";
                 }
+            }
+        }
+
+        internal void ToggleUpgrade()
+        {
+            if(IsUpgraded)
+            {
+                IsUpgraded = false;
+            }
+            else
+            {
+                IsUpgraded = true;
             }
         }
 

@@ -53,10 +53,20 @@ namespace NotContra
             this.Hero.Projectiles.ShootEnemies(this.Manager.Enemies);
             this.Hero.Projectiles.UpdateProjectiles();
 
-            //check for end of game
-            Tile end = Terrain.GetEnd();
             int x = Hero.X + ImageSelector.IMAGE_WIDTH / 2;
             int y = Hero.Y + ImageSelector.IMAGE_HEIGHT / 2;
+
+            //check for tile upgrade
+            Tile upgrade = Terrain.GetUpgrade();
+            
+            if(x > upgrade.X && x < upgrade.X + ImageSelector.IMAGE_WIDTH
+                && y > upgrade.Y && y < upgrade.Y + ImageSelector.IMAGE_HEIGHT)
+            {
+                Hero.IsUpgraded = true;
+            }
+
+            //check for end of game
+            Tile end = Terrain.GetEnd();
 
             if (x > end.X &&
                 x < end.X + ImageSelector.IMAGE_WIDTH &&

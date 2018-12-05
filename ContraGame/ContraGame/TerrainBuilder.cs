@@ -63,6 +63,9 @@ namespace NotContra
                 case 'D':
                     Terrain.Add(new Tile(TileCode.OPEN, x, y, "world_dirt"));
                     break;
+                case 'P':
+                    Terrain.Add(new Tile(TileCode.UPROJECTILE, x, y, "uProjectile"));
+                    break;
 
             }
         }

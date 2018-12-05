@@ -45,7 +45,15 @@ namespace NotContra
                         y < enemy.Y + ImageSelector.IMAGE_HEIGHT &&
                         !enemy.IsDead())
                     {
-                        enemy.TakeDamage(1);
+                        if(projectile.isUpgraded)
+                        {
+                            enemy.TakeDamage(2);
+                        }
+                        else
+                        {
+                            enemy.TakeDamage(1);
+                        }
+
                         projectile.Dissolve();
                     }
                 }
